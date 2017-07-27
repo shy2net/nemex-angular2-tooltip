@@ -9,10 +9,10 @@ export class TooltipService {
                       background: #000;
                       border: 1px solid #fff;
                       padding: 8px;
-                      color: #fff;
-                      -webkit-box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.75);
-                      -moz-box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.75);
-                      box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.75);`;
+                      color: #fff;`;
 
-  public defaultTooltipHtml = `<div class="tooltip-container"></div>`;
+  public defaultTooltipHtml =
+      `<div class="tooltip-container">
+
+      </div>`;
 }
