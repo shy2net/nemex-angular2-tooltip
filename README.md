@@ -61,3 +61,25 @@ You can edit the default tooltip configurations easily, by simply accessing the 
 - **defaultPlacement** - the default placement of the tooltip (top, bottom, left, right).
 - **defaultMouseLeaveRadius** - the default radius the mouse is allowed to leave out of the leement and the tooltip still visible.
 - **defaultTooltipStyle** - the default style the tooltip.
+
+An example of editing the default tooltip style is by injecting the service into the app component:
+```typescript
+import { Component } from '@angular/core';
+import { TooltipService } from 'nemex-angular2-tooltip';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'app';
+
+  public constructor(private tooltipService:TooltipService) {
+    tooltipService.defaultTooltipStyle =
+      `background: #000;
+       color: #fff;
+       padding: 5px;`;
+  }
+}
+```
