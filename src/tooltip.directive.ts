@@ -104,7 +104,7 @@ export class TooltipDirective {
       }
       else {
         // Destroy the tooltip as we don't need it anymore
-        this.tooltipComponent.destroy();
+         this.tooltipComponent.destroy();
 
         // Stop binding as the tooltip does not exist anymore
         document.removeEventListener('mousemove', this.mouseMoveBind);

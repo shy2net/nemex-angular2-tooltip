@@ -8,6 +8,7 @@ import { DomSanitizer  } from '@angular/platform-browser';
     template: `<div class="tooltip"
                   (window:resize)="onWindowResize($event)"
                   style="position: absolute;"
+                  [ngClass]=this.getClass()
                   [style.left.px]=this.x
                   [style.top.px]=this.y>
 
@@ -26,6 +27,8 @@ export class TooltipComponent{
   set tooltipData(tooltipData: TooltipData) {
     this._tooltipData = tooltipData;
   }
+
+  getClass() { return "tooltip-" + this._tooltipData.placement; }
 
   ngAfterContentInit() {
     var tooltipElement = this.getTooltipElement();
