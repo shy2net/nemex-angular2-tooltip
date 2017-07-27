@@ -67,6 +67,8 @@ export class TooltipDirective {
       const factory = this.componentFactoryResolver.resolveComponentFactory(TooltipComponent);
       const elementRef = this.viewContainerRef.createComponent(factory);
       this.tooltipComponent = elementRef;
+
+      // Attach the tooltip to the body
       this.document.querySelector('body').appendChild(elementRef.location.nativeElement);
       elementRef.instance.tooltipData = tooltipData;
 
