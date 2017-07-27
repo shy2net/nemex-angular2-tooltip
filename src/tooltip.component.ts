@@ -12,7 +12,8 @@ import { DomSanitizer  } from '@angular/platform-browser';
                   [style.left.px]=this.x
                   [style.top.px]=this.y>
 
-                </div>`
+                </div>`,
+    styles: []
 })
 export class TooltipComponent{
   private _tooltipData: TooltipData;
