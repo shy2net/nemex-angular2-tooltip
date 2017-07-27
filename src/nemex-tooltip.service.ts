@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class TooltipService {
-  public defaultOffset = 10;
+  public defaultOffset = 7;
   public defaultPlacement = 'bottom';
-  public defaultMouseLeaveRadius = 20;
+  public defaultMouseLeaveRadius = 10;
   public defaultTooltipStyle = `
                       background: #000;
                       border: 1px solid #fff;

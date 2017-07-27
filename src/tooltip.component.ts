@@ -91,7 +91,7 @@ export class TooltipComponent{
         break;
       case 'bottom':
         this.x += (width / 2) - (tooltipWidth / 2);
-        this.y += height + tooltipHeight;
+        this.y += height;
         break;
       case 'left':
         this.x -= tooltipWidth;
