@@ -1,5 +1,5 @@
 {
-  "name": "nemex-tooltip",
+  "name": "nemex-angular2-tooltip",
   "version": "1.0.0",
   "description": "Advanced angular 2 tooltip",
   "main": "index.js",
@@ -44,7 +44,7 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/shy2net/nemex-angular2-tooltip"
   },
   "keywords": [
     "angular2",
@@ -53,5 +53,5 @@
     "advanced-tooltip"
   ],
   "author": "Shay Yaish <shynet@gmail.com>",
-  "homepage": ""
+  "homepage": "http://www.byshynet.com"
 }
