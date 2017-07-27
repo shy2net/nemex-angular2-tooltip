@@ -34,18 +34,23 @@ export class TooltipComponent{
     tooltipElement.innerHTML = this._tooltipData.containerHtml;
 
     var containerElement = this.getTooltipContainerElement();
-    if (!containerElement)
-      throw new Error("tooltip-container tag was not found - please add a tag containing the class tooltip-container to the custom tooltip html specified");
 
-    var tooltipContent = this._tooltipData.content;
-    containerElement.innerHTML = null;
+    // Check if a container was specified
+    if (containerElement) {
+      var tooltipContent = this._tooltipData.content;
+      containerElement.innerHTML = null;
 
-    if (typeof tooltipContent == "string")
-      containerElement.innerHTML = this._tooltipData.content;
-    else
-      containerElement.appendChild(tooltipContent);
+      if (typeof tooltipContent == "string")
+        containerElement.innerHTML = this._tooltipData.content;
+      else
+        containerElement.appendChild(tooltipContent);
 
-    containerElement.style = this._tooltipData.style;
+      containerElement.style = this._tooltipData.style;
+    }
+    else {
+      console.log("tooltip-container tag was not found - please add a tag containing the class tooltip-container to the custom tooltip html specified");
+    }
+
     this.placeTooltip();
   }
 

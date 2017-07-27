@@ -56,6 +56,7 @@ This tooltip supports the following properties:
 - **tooltipPlacement** - the position to place the tooltip relative to the element.
 - **tooltipOffsetX, tooltipOffsetY** - the number of pixels to add between the element to the tooltip.
 - **tooltipStyle** - the style to use for the tooltip.
+- **tooltipHtml** - the container html for the tooltip.
 - **tooltipLeaveRadius** - the radius the mouse is allowed to leave out of the element and the tooltip still visible.
 
 ## Editing the default configurations
@@ -63,6 +64,7 @@ You can edit the default tooltip configurations easily, by simply accessing the 
 - **defaultOffset** - the default number of pixels the tooltip is far from the element.
 - **defaultPlacement** - the default placement of the tooltip (top, bottom, left, right).
 - **defaultMouseLeaveRadius** - the default radius the mouse is allowed to leave out of the leement and the tooltip still visible.
+- **defaultTooltipHtml** - the default tooltip container html. You must specify a tag with the "tooltip-container" for the tooltip to populate the content into.
 - **defaultTooltipStyle** - the default style the tooltip.
 
 An example of editing the default tooltip style is by injecting the service into the app component:
