@@ -10,7 +10,7 @@ It features the following:
 In your app module add the following code:
 ```typescript
 ...
-import { NemexTooltipModule, TooltipService } from 'nemex-tooltip';
+import { NemexTooltipModule, TooltipService } from 'nemex-angular2-tooltip';
 
 @NgModule({
   ...
