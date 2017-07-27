@@ -60,4 +60,4 @@ You can edit the default tooltip configurations easily, by simply accessing the 
 - **defaultOffset** - the default number of pixels the tooltip is far from the element.
 - **defaultPlacement** - the default placement of the tooltip (top, bottom, left, right).
 - **defaultMouseLeaveRadius** - the default radius the mouse is allowed to leave out of the leement and the tooltip still visible.
-- **defaultTooltipStyle** - th default style the tooltip.
+- **defaultTooltipStyle** - the default style the tooltip.
