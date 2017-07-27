@@ -1,28 +1,40 @@
-# NemexTooltip
+# Advanced Angular 2 Tooltip
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.1.
+This module allows creating angular 2 tooltips easily.
+It features the following:
+- Control of tooltip placements.
+- Tooltip with HTML content support! (including buttons)
+- Global and specific styling for each tooltip.
 
-## Development server
+## How to add this tooltip?
+In your app module add the following code:
+```typescript
+...
+import { NemexTooltipModule, TooltipService } from 'nemex-tooltip';
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+@NgModule({
+  ...
+  imports: [
+    NemexTooltipModule
+  ],
+  providers: [ TooltipService],
+  ...
+})
+```
 
-## Code scaffolding
+Now to your component html add the following:
+```html
+<div tooltip tooltip-content="I'm a nice tooltip!">
+    ...
+</div>
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+If you want to use HTML inside of your tooltip, use the following:
+```html
+<div tooltip>
+    <div class="tooltip-content">
+        <!-- Any custom content goes here -->
+        <button>Just a simple tooltip button!</button>
+    </div>
+    ...
+</div>
