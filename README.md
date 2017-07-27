@@ -6,7 +6,7 @@ It features the following:
 - Tooltip with HTML content support! (including buttons)
 - Global and specific styling for each tooltip.
 
-## How to add this tooltip?
+## Tooltip installation
 In your app module add the following code:
 ```typescript
 ...
