@@ -9,7 +9,8 @@ export class TooltipService {
                       background: #000;
                       border: 1px solid #fff;
                       padding: 8px;
-                      color: #fff;`;
+                      color: #fff;
+                      border-radius: 5px`;
 
   public defaultTooltipHtml =
       `<div class="tooltip-container">
