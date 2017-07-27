@@ -6,6 +6,7 @@ export interface TooltipData {
   offsetX: number,
   offsetY: number,
   placement: string,
+  containerHtml: string,
   style: string,
   targetElement: ElementRef,
   content: any

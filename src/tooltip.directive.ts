@@ -19,6 +19,7 @@ export class TooltipDirective {
    @Input() public tooltipOffsetX: number;
    @Input() public tooltipOffsetY: number;
    @Input() public tooltipPlacement: string;
+   @Input() public tooltipHtml: string;
    @Input() public tooltipStyle: string;
    @Input() public tooltipLeaveRadius: number;
    private tooltipComponent;
@@ -46,7 +47,7 @@ export class TooltipDirective {
     createTooltip(event:any) {
       if (!this.tooltipContent)
         throw new Error("tooltipContent is missing!");
-        
+
       let tooltipData = {
         eventX: event.clientX,
         eventY: event.clientY,
@@ -54,6 +55,7 @@ export class TooltipDirective {
         offsetY: Number(this.tooltipOffsetY),
         style: this.tooltipStyle || this.tooltipService.defaultTooltipStyle,
         placement: this.tooltipPlacement || this.tooltipService.defaultPlacement,
+        containerHtml: this.tooltipHtml || this.tooltipService.defaultTooltipHtml,
         targetElement: this.el,
         content: this.tooltipContent
       };

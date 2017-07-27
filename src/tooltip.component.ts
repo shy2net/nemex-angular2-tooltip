@@ -7,9 +7,10 @@ import { DomSanitizer  } from '@angular/platform-browser';
     selector: 'tooltip',
     template: `<div class="tooltip"
                   (window:resize)="onWindowResize($event)"
+                  style="position: absolute;"
                   [style.left.px]=this.x
                   [style.top.px]=this.y>
-                  Tooltip content is missing
+
                 </div>`
 })
 export class TooltipComponent{
@@ -28,16 +29,23 @@ export class TooltipComponent{
 
   ngAfterContentInit() {
     var tooltipElement = this.getTooltipElement();
+
+    // Parse and sanitize the provided html
+    tooltipElement.innerHTML = this._tooltipData.containerHtml;
+
+    var containerElement = this.getTooltipContainerElement();
+    if (!containerElement)
+      throw new Error("tooltip-container tag was not found - please add a tag containing the class tooltip-container to the custom tooltip html specified");
+
     var tooltipContent = this._tooltipData.content;
-    tooltipElement.innerHTML = null;
+    containerElement.innerHTML = null;
 
     if (typeof tooltipContent == "string")
-      tooltipElement.innerHTML = this._tooltipData.content;
+      containerElement.innerHTML = this._tooltipData.content;
     else
-      tooltipElement.appendChild(tooltipContent);
+      containerElement.appendChild(tooltipContent);
 
-    tooltipElement.style = this._tooltipData.style;
-    this.renderer.setElementStyle(tooltipElement, 'position', 'absolute');
+    containerElement.style = this._tooltipData.style;
     this.placeTooltip();
   }
 
@@ -46,6 +54,7 @@ export class TooltipComponent{
   isTooltipReady() { return this._tooltipData != null; }
 
   public getTooltipElement() { return this.el.nativeElement.firstElementChild; }
+  public getTooltipContainerElement() { return this.getTooltipElement().querySelector(".tooltip-container"); }
 
   // Update the tooltip position accordingly
   onWindowResize(event) {
