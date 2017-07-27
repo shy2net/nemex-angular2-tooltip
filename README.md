@@ -7,6 +7,9 @@ It features the following:
 - Global and specific styling for each tooltip.
 
 ## Tooltip installation
+Install the package using the following command:
+> npm install nemex-angular2-tooltip --save
+
 In your app module add the following code:
 ```typescript
 ...
