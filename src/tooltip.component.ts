@@ -1,17 +1,23 @@
-import { Component, ElementRef, Renderer } from '@angular/core';
+import { Component, ElementRef, Renderer, Inject } from '@angular/core';
 import { TooltipService } from './nemex-tooltip.service';
 import { TooltipData } from './tooltip_data';
 import { DomSanitizer  } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
     selector: 'tooltip',
     template: `<div class="tooltip"
+                  (window:scroll)="onWindowScroll($event)"
                   (window:resize)="onWindowResize($event)"
                   style="position: absolute;"
                   [ngClass]=this.getClass()
                   [style.left.px]=this.x
                   [style.top.px]=this.y>
-                  <tooltip-arrow *ngIf="isArrowVisible()" [orientation]=getArrowOrientation() [fillColor]=this.getArrowFillColor()></tooltip-arrow>
+                  <tooltip-arrow 
+                    *ngIf="isArrowVisible()" 
+                    [orientation]=getArrowOrientation() 
+                    [fillColor]=this.getArrowFillColor()>
+                  </tooltip-arrow>
 
                   <div class="tooltip-wrapper">
 
@@ -27,7 +33,8 @@ export class TooltipComponent{
   constructor(private el:ElementRef,
     private renderer:Renderer,
     private tooltipService:TooltipService,
-    private sanitizer: DomSanitizer) { }
+    private sanitizer: DomSanitizer,
+    @Inject(DOCUMENT) private document:any) { }
 
   set tooltipData(tooltipData: TooltipData) {
     this._tooltipData = tooltipData;
@@ -92,6 +99,11 @@ export class TooltipComponent{
     this.placeTooltip();
   }
 
+  // Update the tooltip position when window is being scrolled
+  onWindowScroll(event) {
+    this.placeTooltip();
+  }
+
   placeTooltip() {
     if (!this.isTooltipReady()) return;
 
@@ -111,8 +123,8 @@ export class TooltipComponent{
     var offsets = this.calculateOffsets();
 
     // Place the tooltip correctly
-    this.x = absPosition.left + offsets.offsetX;
-    this.y = absPosition.top + offsets.offsetY;
+    this.x = this.document.body.scrollLeft + absPosition.left + offsets.offsetX;
+    this.y = this.document.body.scrollTop + absPosition.top + offsets.offsetY;
 
     // Finally place the tooltip
     switch (tooltipPlacement) {
@@ -133,6 +145,8 @@ export class TooltipComponent{
         this.y += (height / 2) - (tooltipHeight / 2);
         break;
     }
+
+    console.log("Tooltip positioned at: { X:" + this.x + " Y:" + this.y + " }")
   }
 
   // Calculates all of the offsets according

@@ -9,7 +9,6 @@ export class TooltipService {
   public defaultShowArrow = true;
   public defaultTooltipStyle = `
                       background: {tooltipColor};
-                      border: 1px solid #fff;
                       padding: 8px;
                       color: #fff;
                       border-radius: 5px`;
