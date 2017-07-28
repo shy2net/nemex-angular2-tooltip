@@ -105,11 +105,13 @@ export class TooltipDirective {
 
       var isMouseInsideElement = util.isMouseInBounds(event,
                                 this.el.nativeElement,
-                                this.tooltipLeaveRadius);
+                                this.tooltipLeaveRadius,
+                                this.document);
 
       var isMouseInsideTooltip = isMouseInsideElement ||
                                   util.isMouseInBounds(event,
-                                  tooltipElement, 0)
+                                  tooltipElement, 0,
+                                  this.document)
 
       // Check if the user is in the bounds of the element or the tooltip
       if (isMouseInsideElement || isMouseInsideTooltip) {

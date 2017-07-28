@@ -1,6 +1,6 @@
-export const isMouseInBounds = function(event, el, leaveRadius) {
-  var mouseX = event.clientX;
-  var mouseY = event.clientY;
+export const isMouseInBounds = function(event, el, leaveRadius, document) {
+  var mouseX = document.body.scrollLeft + event.clientX;
+  var mouseY = document.body.scrollTop + event.clientY;
 
   var elementX = el.offsetLeft;
   var elementWidth = el.offsetWidth;

@@ -54,7 +54,9 @@ export class TooltipComponent{
     }
   }
 
-  getArrowFillColor() { return this._tooltipData.color; }
+  getArrowFillColor() { 
+    return this._tooltipData.color; 
+  }
 
   getClass() { return "tooltip-" + this._tooltipData.placement; }
 
@@ -146,7 +148,7 @@ export class TooltipComponent{
         break;
     }
 
-    console.log("Tooltip positioned at: { X:" + this.x + " Y:" + this.y + " }")
+    // console.log("Tooltip positioned at: { X:" + this.x + " Y:" + this.y + " }");
   }
 
   // Calculates all of the offsets according

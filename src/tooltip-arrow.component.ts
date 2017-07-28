@@ -7,7 +7,7 @@ import { TooltipService } from './nemex-tooltip.service';
                     <svg width="35" height="10" xmlns="http://www.w3.org/2000/svg">
                         <g>
                             <g id="svg_1">
-                            <path id="svg_4" d="m2.315921,10.092586l30.36816,0l-15.33592,-8.65182l-15.03224,8.65182z" fill="#000000" stroke="null"/>
+                            <path id="svg_4" d="m2.315921,10.092586l30.36816,0l-15.33592,-8.65182l-15.03224,8.65182z" [attr.fill]="getFillColor()" stroke="null"/>
                             </g>
                         </g>
                     </svg>
@@ -17,7 +17,7 @@ import { TooltipService } from './nemex-tooltip.service';
                     <svg width="35" height="10" xmlns="http://www.w3.org/2000/svg">
                         <g>
                             <g transform="rotate(180 17.5,4.166677951812744) " id="svg_1">
-                                <path id="svg_4" d="m2.315921,8.492588l30.36816,0l-15.33592,-8.65182l-15.03224,8.65182z" fill="#000000" stroke="null"/>
+                                <path id="svg_4" d="m2.315921,8.492588l30.36816,0l-15.33592,-8.65182l-15.03224,8.65182z" [attr.fill]="getFillColor()" stroke="null"/>
                             </g>
                         </g>
                     </svg>
@@ -28,7 +28,7 @@ import { TooltipService } from './nemex-tooltip.service';
                         <g>
                             <g id="svg_2">
                                 <g stroke="null" transform="rotate(-90 5.886415481567384,13.024868965148926) " id="svg_1">
-                                    <path stroke="null" fill="#000000" d="m-7.161923,18.181367l26.09668,0l-13.17882,-10.31295l-12.91786,10.31295z" id="svg_4"/>
+                                    <path stroke="null" [attr.fill]="getFillColor()" d="m-7.161923,18.181367l26.09668,0l-13.17882,-10.31295l-12.91786,10.31295z" id="svg_4"/>
                                 </g>
                             </g>
                         </g>
