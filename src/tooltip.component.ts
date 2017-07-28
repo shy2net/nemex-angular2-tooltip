@@ -11,7 +11,11 @@ import { DomSanitizer  } from '@angular/platform-browser';
                   [ngClass]=this.getClass()
                   [style.left.px]=this.x
                   [style.top.px]=this.y>
+                  <tooltip-arrow *ngIf="isArrowVisible()" [orientation]=getArrowOrientation() [fillColor]=this.getArrowFillColor()></tooltip-arrow>
 
+                  <div class="tooltip-wrapper">
+
+                  </div>
                 </div>`,
     styles: []
 })
@@ -29,13 +33,30 @@ export class TooltipComponent{
     this._tooltipData = tooltipData;
   }
 
+  isArrowVisible() { 
+    return this._tooltipData.showArrow; 
+  }
+
+  // Returns the tooltip arrow orientation
+  getArrowOrientation() {
+    switch (this._tooltipData.placement) {
+      case "top": return "down";
+      case "bottom": return "up";
+      case "left": return "right";
+      case "right": return "left";
+    }
+  }
+
+  getArrowFillColor() { return this._tooltipData.color; }
+
   getClass() { return "tooltip-" + this._tooltipData.placement; }
 
   ngAfterContentInit() {
     var tooltipElement = this.getTooltipElement();
+    var tooltipWrapperElement = this.getTooltipWrapperElement();
 
     // Parse and sanitize the provided html
-    tooltipElement.innerHTML = this._tooltipData.containerHtml;
+    tooltipWrapperElement.innerHTML = this._tooltipData.containerHtml;
 
     var containerElement = this.getTooltipContainerElement();
 
@@ -63,6 +84,7 @@ export class TooltipComponent{
   isTooltipReady() { return this._tooltipData != null; }
 
   public getTooltipElement() { return this.el.nativeElement.firstElementChild; }
+  public getTooltipWrapperElement() { return this.getTooltipElement().querySelector(".tooltip-wrapper");  }
   public getTooltipContainerElement() { return this.getTooltipElement().querySelector(".tooltip-container"); }
 
   // Update the tooltip position accordingly

@@ -8,6 +8,8 @@ export interface TooltipData {
   placement: string,
   containerHtml: string,
   style: string,
+  showArrow: boolean,
+  color: string,
   targetElement: ElementRef,
   content: any
 }

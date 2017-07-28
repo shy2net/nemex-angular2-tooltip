@@ -20,6 +20,8 @@ export class TooltipDirective {
    @Input() public tooltipOffsetY: number;
    @Input() public tooltipPlacement: string;
    @Input() public tooltipHtml: string;
+   @Input() public tooltipColor: string;
+   @Input() public tooltipShowArrow: boolean;
    @Input() public tooltipStyle: string;
    @Input() public tooltipLeaveRadius: number;
    private tooltipComponent;
@@ -44,18 +46,29 @@ export class TooltipDirective {
       if (tooltipContentTag) tooltipContentTag.remove();
     }
 
+    // Returns the tooltip style set while replacing the tooltip color within it if specified (comes with the defaultTooltipStyle).
+    public getTooltipStyle()  {
+      var style = this.tooltipStyle || this.tooltipService.defaultTooltipStyle;
+      return style.replace("{tooltipColor}", this.tooltipColor || this.tooltipService.defaultTooltipColor);
+    }
+
     createTooltip(event:any) {
       if (!this.tooltipContent)
         throw new Error("tooltipContent is missing!");
+
+      var showArrow = this.tooltipService.defaultShowArrow;
+      if (this.tooltipShowArrow != undefined) showArrow = this.tooltipShowArrow;
 
       let tooltipData = {
         eventX: event.clientX,
         eventY: event.clientY,
         offsetX:  Number(this.tooltipOffsetX),
         offsetY: Number(this.tooltipOffsetY),
-        style: this.tooltipStyle || this.tooltipService.getTooltipStyle(),
+        style: this.getTooltipStyle(),
         placement: this.tooltipPlacement || this.tooltipService.defaultPlacement,
         containerHtml: this.tooltipHtml || this.tooltipService.defaultTooltipHtml,
+        color: this.tooltipColor || this.tooltipService.defaultTooltipColor,
+        showArrow: showArrow,
         targetElement: this.el,
         content: this.tooltipContent
       };
@@ -104,7 +117,7 @@ export class TooltipDirective {
       }
       else {
         // Destroy the tooltip as we don't need it anymore
-         // this.tooltipComponent.destroy();
+        this.tooltipComponent.destroy();
 
         // Stop binding as the tooltip does not exist anymore
         document.removeEventListener('mousemove', this.mouseMoveBind);
