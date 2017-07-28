@@ -8,6 +8,9 @@ It features the following:
 - Advanced configurations.
 - Easy to use yet highly configurable.
 
+This package contains an example usage with thefollwing tooltips:
+
+
 ## Tooltip installation
 Install the package using the following command:
 > npm install nemex-angular2-tooltip --save
