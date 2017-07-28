@@ -20,7 +20,7 @@ import { DOCUMENT } from '@angular/platform-browser';
                   </tooltip-arrow>
 
                   <div class="tooltip-wrapper">
-
+                    <!-- Here goes the tooltip content HTML -->
                   </div>
                 </div>`,
     styles: []
@@ -60,13 +60,19 @@ export class TooltipComponent{
 
   getClass() { return "tooltip-" + this._tooltipData.placement; }
 
-  ngAfterContentInit() {
-    var tooltipElement = this.getTooltipElement();
+  // Initialized the tooltip wrapper, which hold the container and the tooltip bubble arrow
+  initTooltipWrapper() {
     var tooltipWrapperElement = this.getTooltipWrapperElement();
+    var tooltipHtml = this._tooltipData.containerHtml;
 
-    // Parse and sanitize the provided html
-    tooltipWrapperElement.innerHTML = this._tooltipData.containerHtml;
+    if (typeof tooltipHtml == "string")
+      tooltipWrapperElement.innerHTML = this._tooltipData.containerHtml;
+    else
+      tooltipWrapperElement.appendChild(tooltipHtml);
+  }
 
+  // Initializes the tootlip container which contains all of the tooltip content
+  initTooltipContainer() {
     var containerElement = this.getTooltipContainerElement();
 
     // Check if a container was specified
@@ -84,7 +90,13 @@ export class TooltipComponent{
     else {
       console.log("tooltip-container tag was not found - please add a tag containing the class tooltip-container to the custom tooltip html specified");
     }
+  }
 
+  // This is called whe component has been initialized, sets up everything required from the tooltip
+  ngAfterContentInit() {
+    var tooltipElement = this.getTooltipElement();
+    this.initTooltipWrapper();
+    this.initTooltipContainer();
     this.placeTooltip();
   }
 

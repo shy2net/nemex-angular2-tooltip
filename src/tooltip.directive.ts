@@ -23,7 +23,7 @@ export class TooltipDirective {
    @Input() public tooltipShowArrow: boolean;
    @Input() public tooltipLeaveRadius: number;
    @Input() public tooltipStyle: string;
-   @Input() public tooltipHtml: string;
+   @Input() public tooltipHtml: any;
    
    private tooltipComponent;
 
@@ -42,6 +42,11 @@ export class TooltipDirective {
     ngAfterContentInit() {
       var tooltipContentTag = this.el.nativeElement.querySelector('.tooltip-content');
       this.tooltipContent = (tooltipContentTag != null) ? tooltipContentTag : this.tooltipContent;
+      var tooltipHtmlTag = this.el.nativeElement.querySelector('.tooltip-html');
+      this.tooltipHtml = (tooltipHtmlTag != null) ? tooltipHtmlTag : (this.tooltipHtml || this.tooltipService.defaultTooltipHtml);
+
+      // If the tooltip customization html tag is present, remove it
+      if (tooltipHtmlTag) tooltipHtmlTag.remove();
 
       // Remove the tooltip content tag if exists
       if (tooltipContentTag) tooltipContentTag.remove();
@@ -49,7 +54,7 @@ export class TooltipDirective {
 
     // Returns the tooltip style set while replacing the tooltip color within it if specified (comes with the defaultTooltipStyle).
     public getTooltipStyle()  {
-      var style = this.tooltipStyle || this.tooltipService.defaultTooltipStyle;
+      var style = (this.tooltipStyle != undefined) ?  this.tooltipStyle : this.tooltipService.defaultTooltipStyle;
       return style.replace("{tooltipColor}", this.tooltipColor || this.tooltipService.defaultTooltipColor);
     }
 
@@ -111,8 +116,8 @@ export class TooltipDirective {
 
       var isMouseInsideTooltip = isMouseInsideElement ||
                                   util.isMouseInBounds(event,
-                                  tooltipElement, 0,
-                                  this.document)
+                                    tooltipElement, 0,
+                                    this.document);
 
       // Check if the user is in the bounds of the element or the tooltip
       if (isMouseInsideElement || isMouseInsideTooltip) {

@@ -1,0 +1,50 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align: center;">
+  <div class="tooltip-example-block">
+      <h3>Angular 2 Tooltip examples</h3>
+
+      <ul>
+        <li>
+          <a href="#" tooltip tooltipContent="Hey there!">
+            Hover me for a normal tooltip! 
+          </a>
+        </li>
+
+        <li>
+          <a href="#" tooltip>
+            I'm an advanced tooltip!
+
+            <div class="tooltip-content">
+              <h3>Hey there!</h3>
+              I'm some content in this advanced tooltip.<br /><br />
+              <input type="button" value="Say hello!" onclick="javascript:alert('Hello!');" />
+            </div>
+          </a>
+        </li>
+
+        <li>
+          <a href="#" 
+            tooltip tooltipContent="I'm blue!" 
+            tooltipColor="blue"
+            tooltipPlacement="left">
+            I'm a blue tooltip placed on the left!
+          </a>
+        </li>
+
+        <li>
+          <a href="#"
+            tooltip
+            tooltipContent="DSA"
+            tooltipStyle=""
+            [tooltipShowArrow]=false>
+            I'm a highly styled tooltip!
+
+            <div class="tooltip-content special-tooltip">
+              Look at my corners, they are so special!
+            </div>
+
+          </a>
+        </li>
+      </ul>
+  </div>
+</div>

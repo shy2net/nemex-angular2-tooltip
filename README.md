@@ -5,6 +5,8 @@ It features the following:
 - Control of tooltip placements.
 - Tooltip with HTML content support! (including buttons)
 - Global and specific styling for each tooltip.
+- Advanced configurations.
+- Easy to use yet highly configurable.
 
 ## Tooltip installation
 Install the package using the following command:
@@ -17,10 +19,16 @@ import { NemexTooltipModule, TooltipService } from 'nemex-angular2-tooltip';
 
 @NgModule({
   ...
+  // Import the module in order to add the tooltip directive
   imports: [
+    ...
     NemexTooltipModule
   ],
-  providers: [ TooltipService],
+  // Add the tooltip service to your list of providers in order to easily configure it globally
+  providers: [ 
+    ...
+    TooltipService
+  ],
   ...
 })
 ```
