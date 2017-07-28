@@ -1,12 +1,15 @@
 # Advanced Angular 2 Tooltip
 
-This module allows creating angular 2 tooltips easily.
+This package allows you to create highly customizable or simple tooltips easily.
+It supports adding HTML content such as buttons just like Facebook user profile tooltip,
+or you can just use it as a simple tooltip.
+
 It features the following:
 - Control of tooltip placements.
 - Tooltip with HTML content support! (including buttons)
 - Global and specific styling for each tooltip.
 - Advanced configurations.
-- Easy to use yet highly configurable.
+- Easy to use yet highly configurable and customizable.
 
 It looks like the following (by default):
 
