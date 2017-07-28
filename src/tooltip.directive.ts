@@ -16,14 +16,15 @@ import * as util from './utils';
 })
 export class TooltipDirective {
    @Input() public tooltipContent: string;
+   @Input() public tooltipPlacement: string;
    @Input() public tooltipOffsetX: number;
    @Input() public tooltipOffsetY: number;
-   @Input() public tooltipPlacement: string;
-   @Input() public tooltipHtml: string;
    @Input() public tooltipColor: string;
    @Input() public tooltipShowArrow: boolean;
-   @Input() public tooltipStyle: string;
    @Input() public tooltipLeaveRadius: number;
+   @Input() public tooltipStyle: string;
+   @Input() public tooltipHtml: string;
+   
    private tooltipComponent;
 
    // The mouse move bind handler

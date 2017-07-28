@@ -52,20 +52,24 @@ The tooltip can be customized using simple properties such as:
 </div>
 ```
 This tooltip supports the following properties:
-- **tooltipContent** - the content string to show in the tooltip.
+- **tooltipContent** - the content string to show in the tooltip. If you want to render out HTML, simply add a tag inside of your HTML element with the class "tooltip-content".
 - **tooltipPlacement** - the position to place the tooltip relative to the element.
 - **tooltipOffsetX, tooltipOffsetY** - the number of pixels to add between the element to the tooltip.
+- **tooltipColor** - the default color of the container tooltip.
+- **tooltipShowArrow** - If set to false, no arrow will be shown next to tooltip.
+- **tooltipLeaveRadius** - the radius the mouse is allowed to leave out of the element and the tooltip still visible.
 - **tooltipStyle** - the style to use for the tooltip.
 - **tooltipHtml** - the container html for the tooltip.
-- **tooltipLeaveRadius** - the radius the mouse is allowed to leave out of the element and the tooltip still visible.
 
 ## Editing the default configurations
 You can edit the default tooltip configurations easily, by simply accessing the TooltipService and editing the following members:
-- **defaultOffset** - the default number of pixels the tooltip is far from the element.
 - **defaultPlacement** - the default placement of the tooltip (top, bottom, left, right).
+- **defaultOffset** - the default number of pixels the tooltip is far from the element.
+- **defaultTooltipColor** - the default color of the container tooltip.
+- **defaultTooltipShowArrow** - By default, sets if the tooltip arrow will be shown or not (set to true).
 - **defaultMouseLeaveRadius** - the default radius the mouse is allowed to leave out of the leement and the tooltip still visible.
-- **defaultTooltipHtml** - the default tooltip container html. You must specify a tag with the "tooltip-container" for the tooltip to populate the content into.
 - **defaultTooltipStyle** - the default style the tooltip.
+- **defaultTooltipHtml** - the default tooltip container html. You must specify a tag with the "tooltip-container" for the tooltip to populate the content into.
 
 An example of editing the default tooltip style is by injecting the service into the app component:
 ```typescript
