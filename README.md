@@ -8,6 +8,7 @@ It features the following:
 - Advanced configurations.
 - Easy to use yet highly configurable.
 
+It looks like the following (by default):
 ![Angular2 tooltip example](https://github.com/shy2net/nemex-angular2-tooltip/raw/master/example/tooltip-example-jpg.jpg)
 
 This package contains an example usage with the following tooltips:
