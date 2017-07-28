@@ -8,8 +8,8 @@ It features the following:
 - Advanced configurations.
 - Easy to use yet highly configurable.
 
-This package contains an example usage with thefollwing tooltips:
-
+This package contains an example usage with the following tooltips:
+![Angular2 tooltip example](https://github.com/shy2net/nemex-angular2-tooltip/raw/master/example/tooltip-example-gif.gif)
 
 ## Tooltip installation
 Install the package using the following command:
