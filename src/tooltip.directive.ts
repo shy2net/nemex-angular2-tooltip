@@ -53,7 +53,7 @@ export class TooltipDirective {
         eventY: event.clientY,
         offsetX:  Number(this.tooltipOffsetX),
         offsetY: Number(this.tooltipOffsetY),
-        style: this.tooltipStyle || this.tooltipService.defaultTooltipStyle,
+        style: this.tooltipStyle || this.tooltipService.getTooltipStyle(),
         placement: this.tooltipPlacement || this.tooltipService.defaultPlacement,
         containerHtml: this.tooltipHtml || this.tooltipService.defaultTooltipHtml,
         targetElement: this.el,
@@ -104,7 +104,7 @@ export class TooltipDirective {
       }
       else {
         // Destroy the tooltip as we don't need it anymore
-         this.tooltipComponent.destroy();
+         // this.tooltipComponent.destroy();
 
         // Stop binding as the tooltip does not exist anymore
         document.removeEventListener('mousemove', this.mouseMoveBind);
