@@ -9,9 +9,10 @@ It features the following:
 - Easy to use yet highly configurable.
 
 It looks like the following (by default):
+
 ![Angular2 tooltip example](https://github.com/shy2net/nemex-angular2-tooltip/raw/master/example/tooltip-example-jpg.jpg)
 
-This package contains an example usage with the following tooltips:
+It comes with an example code containg the following:
 ![Angular2 tooltip example](https://github.com/shy2net/nemex-angular2-tooltip/raw/master/example/tooltip-example-gif.gif)
 
 ## Tooltip installation
