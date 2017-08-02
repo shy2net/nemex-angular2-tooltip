@@ -104,6 +104,7 @@ export class TooltipComponent{
 
   isTooltipReady() { return this._tooltipData != null; }
 
+  public getReferencedDirective() { this._tooltipData.referencedDirective; }
   public getTooltipElement() { return this.el.nativeElement.firstElementChild; }
   public getTooltipWrapperElement() { return this.getTooltipElement().querySelector(".tooltip-wrapper");  }
   public getTooltipContainerElement() { return this.getTooltipElement().querySelector(".tooltip-container"); }

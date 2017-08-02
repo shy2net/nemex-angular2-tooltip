@@ -66,6 +66,7 @@ export class TooltipDirective {
       if (this.tooltipShowArrow != undefined) showArrow = this.tooltipShowArrow;
 
       let tooltipData = {
+        referencedDirective: this,
         eventX: event.clientX,
         eventY: event.clientY,
         offsetX:  Number(this.tooltipOffsetX),
@@ -94,6 +95,7 @@ export class TooltipDirective {
       // Create a mousemove bind, to know when the user left the element
       this.mouseMoveBind = this.onWindowMouseMove.bind(this); // We need the context of this
       this.document.addEventListener('mousemove', this.mouseMoveBind);
+      this.tooltipService.setActiveTooltip(this);
     }
 
     // Called when the mouse is hovering our element
@@ -124,14 +126,24 @@ export class TooltipDirective {
         // Dont do anything if the mouse is inside the element or the tooltip
       }
       else {
-        // Destroy the tooltip as we don't need it anymore
-        this.tooltipComponent.destroy();
-
-        // Stop binding as the tooltip does not exist anymore
-        document.removeEventListener('mousemove', this.mouseMoveBind);
-
-        // Allow the tooltip be recreated
-        this.tooltipComponent = null;
+        this.destroyTooltip();
       }
+    }
+
+    // Removes the tooltips entirely and cleans up any events listened for
+    destroyTooltip() {
+      if (!this.tooltipComponent) return;
+      
+      // Destroy the tooltip as we don't need it anymore
+      this.tooltipComponent.destroy();
+
+      // Stop binding as the tooltip does not exist anymore
+      document.removeEventListener('mousemove', this.mouseMoveBind);
+
+      // Allow the tooltip be recreated
+      this.tooltipComponent = null;
+
+      // Update the tooltip service as there is no active tooltip anymore
+      this.tooltipService.setActiveTooltip(null);
     }
 }
