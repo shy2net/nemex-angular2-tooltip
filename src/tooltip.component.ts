@@ -110,12 +110,12 @@ export class TooltipComponent{
   public getTooltipContainerElement() { return this.getTooltipElement().querySelector(".tooltip-container"); }
 
   // Update the tooltip position accordingly
-  onWindowResize(event) {
+  onWindowResize(event:Event) {
     this.placeTooltip();
   }
 
   // Update the tooltip position when window is being scrolled
-  onWindowScroll(event) {
+  onWindowScroll(event:Event) {
     this.placeTooltip();
   }
 

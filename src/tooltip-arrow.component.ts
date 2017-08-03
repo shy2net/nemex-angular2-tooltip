@@ -78,7 +78,7 @@ import { TooltipService } from './nemex-tooltip.service';
 })
 export class TooltipArrowComponent {
     @Input() public orientation = "up";
-    @Input() public fillColor;
+    @Input() public fillColor:any;
 
     public constructor(private _el:ElementRef, 
         private tooltipService:TooltipService) {

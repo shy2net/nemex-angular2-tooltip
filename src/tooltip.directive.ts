@@ -28,10 +28,10 @@ export class TooltipDirective {
    @Output() public onTooltipShow = new EventEmitter<TooltipDirective>();
    @Output() public onTooltipHide = new EventEmitter<TooltipDirective>();
 
-   private tooltipComponent;
+   private tooltipComponent:ComponentRef<TooltipComponent>;
 
    // The mouse move bind handler
-   private mouseMoveBind;
+   private mouseMoveBind:EventListener;
 
     constructor(private componentFactoryResolver: ComponentFactoryResolver,
        private viewContainerRef: ViewContainerRef,
@@ -104,6 +104,8 @@ export class TooltipDirective {
       this.onTooltipShow.emit(this);
     }
 
+    getTooltipComponent():TooltipComponent { return this.tooltipComponent.instance; }
+
     // Called when the mouse is hovering our element
     onMouseHover(event:any) {
       if (!this.tooltipComponent)
@@ -113,7 +115,7 @@ export class TooltipDirective {
     // By listening to the mouse move on the window we can detect when the user left the element
     // with the leave radius specified, we use this instead of mouseleave event as it does not allow
     // us to handle the extras leave radius we created
-    onWindowMouseMove(event) {
+    onWindowMouseMove(event:Event) {
       if (!this.tooltipComponent) return;
       var tooltipElement = this.tooltipComponent.instance.getTooltipElement();
 
