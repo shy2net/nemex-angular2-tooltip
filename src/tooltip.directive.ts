@@ -3,7 +3,7 @@ import { Component,Directive,Inject, ComponentFactoryResolver, OnInit,
           ViewContainerRef,ComponentRef, EventEmitter } from '@angular/core';
 import { TooltipService } from './nemex-tooltip.service';
 import { TooltipComponent } from './tooltip.component';
-import { TooltipData } from './tooltip_data';
+import { TooltipData } from './tooltip-data';
 import { DOCUMENT } from '@angular/platform-browser';
 import * as util from './utils';
 
@@ -107,7 +107,7 @@ export class TooltipDirective {
     getTooltipComponent():TooltipComponent { return this.tooltipComponent.instance; }
 
     // Called when the mouse is hovering our element
-    onMouseHover(event:any) {
+    onMouseHover(event:MouseEvent) {
       if (!this.tooltipComponent)
         this.createTooltip(event);
     }
@@ -115,7 +115,7 @@ export class TooltipDirective {
     // By listening to the mouse move on the window we can detect when the user left the element
     // with the leave radius specified, we use this instead of mouseleave event as it does not allow
     // us to handle the extras leave radius we created
-    onWindowMouseMove(event:Event) {
+    onWindowMouseMove(event:MouseEvent) {
       if (!this.tooltipComponent) return;
       var tooltipElement = this.tooltipComponent.instance.getTooltipElement();
 
