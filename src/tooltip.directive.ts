@@ -24,7 +24,10 @@ export class TooltipDirective {
    @Input() public tooltipLeaveRadius: number;
    @Input() public tooltipStyle: string;
    @Input() public tooltipHtml: any;
-   
+
+   @Output() public onTooltipShow = new EventEmitter<TooltipDirective>();
+   @Output() public onTooltipHide = new EventEmitter<TooltipDirective>();
+
    private tooltipComponent;
 
    // The mouse move bind handler
@@ -96,6 +99,9 @@ export class TooltipDirective {
       this.mouseMoveBind = this.onWindowMouseMove.bind(this); // We need the context of this
       this.document.addEventListener('mousemove', this.mouseMoveBind);
       this.tooltipService.setActiveTooltip(this);
+
+      // Call the event shown
+      this.onTooltipShow.emit(this);
     }
 
     // Called when the mouse is hovering our element
@@ -133,7 +139,7 @@ export class TooltipDirective {
     // Removes the tooltips entirely and cleans up any events listened for
     destroyTooltip() {
       if (!this.tooltipComponent) return;
-      
+
       // Destroy the tooltip as we don't need it anymore
       this.tooltipComponent.destroy();
 
@@ -145,5 +151,8 @@ export class TooltipDirective {
 
       // Update the tooltip service as there is no active tooltip anymore
       this.tooltipService.setActiveTooltip(null);
+
+      // Call the event hide
+      this.onTooltipHide.emit(this);
     }
 }
