@@ -8,6 +8,7 @@ export interface TooltipData {
   offsetX: number,
   offsetY: number,
   placement: string,
+  effect: string,
   containerHtml: any,
   style: string,
   showArrow: boolean,

@@ -13,6 +13,7 @@ export class TooltipService {
   private onTooltipHideSub:Subscriber<TooltipDirective>;
 
   public defaultPlacement = 'bottom';
+  public defaultEffect = 'fade';
   public defaultOffset = 15;
   public defaultTooltipColor = '#000';
   public defaultShowArrow = true;

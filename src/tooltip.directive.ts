@@ -18,6 +18,7 @@ export class TooltipDirective {
    @Input() public tooltipDisabled: boolean;
    @Input() public tooltipContent: string;
    @Input() public tooltipPlacement: string;
+   @Input() public tooltipEffect: string;
    @Input() public tooltipOffsetX: number;
    @Input() public tooltipOffsetY: number;
    @Input() public tooltipColor: string;
@@ -79,6 +80,7 @@ export class TooltipDirective {
         offsetY: Number(this.tooltipOffsetY),
         style: this.getTooltipStyle(),
         placement: this.tooltipPlacement || this.tooltipService.defaultPlacement,
+        effect: this.tooltipEffect || this.tooltipService.defaultEffect,
         containerHtml: this.tooltipHtml || this.tooltipService.defaultTooltipHtml,
         color: this.tooltipColor || this.tooltipService.defaultTooltipColor,
         showArrow: showArrow,
