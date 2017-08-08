@@ -70,6 +70,7 @@ The tooltip can be customized using simple properties such as:
 </div>
 ```
 This tooltip supports the following properties:
+- **tooltipDisabled** - Set to true if you don't want to the tooltip to appear.
 - **tooltipContent** - the content string to show in the tooltip. If you want to render out HTML, simply add a tag inside of your HTML element with the class "tooltip-content".
 - **tooltipPlacement** - the position to place the tooltip relative to the element.
 - **tooltipOffsetX, tooltipOffsetY** - the number of pixels to add between the element to the tooltip.

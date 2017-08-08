@@ -15,6 +15,7 @@ import * as util from './utils';
   }
 })
 export class TooltipDirective {
+   @Input() public tooltipDisabled: boolean;
    @Input() public tooltipContent: string;
    @Input() public tooltipPlacement: string;
    @Input() public tooltipOffsetX: number;
@@ -62,6 +63,8 @@ export class TooltipDirective {
     }
 
     createTooltip(event:any) {
+      if (this.tooltipDisabled) return;
+      
       if (!this.tooltipContent)
         throw new Error("tooltipContent is missing!");
 
