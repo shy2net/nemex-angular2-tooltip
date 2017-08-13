@@ -1,5 +1,6 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Subscriber } from 'rxjs/Subscriber';
+
 import { TooltipComponent } from './tooltip.component';
 import { TooltipDirective } from './tooltip.directive';
 

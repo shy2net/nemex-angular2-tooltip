@@ -1,10 +1,11 @@
 import { Component,Directive,Inject, ComponentFactoryResolver, OnInit,
           AfterContentChecked,Input,Output, ElementRef, Renderer,
           ViewContainerRef,ComponentRef, EventEmitter } from '@angular/core';
+import { DOCUMENT } from '@angular/platform-browser';
+
 import { TooltipService } from './nemex-tooltip.service';
 import { TooltipComponent } from './tooltip.component';
 import { TooltipData } from './tooltip-data';
-import { DOCUMENT } from '@angular/platform-browser';
 import * as util from './utils';
 
 @Directive({

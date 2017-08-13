@@ -4,11 +4,9 @@
   "description": "Advanced angular 2 tooltip",
   "main": "index.js",
   "license": "MIT",
-  "scripts": {
-
-  },
+  "scripts": {},
   "dependencies": {
-    "@angular/animations": "^4.0.0",
+    "@angular/animations": "^4.3.4",
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
     "@angular/core": "^4.0.0",

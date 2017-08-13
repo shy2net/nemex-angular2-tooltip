@@ -1,8 +1,10 @@
 import { Component, ElementRef, Renderer, Inject } from '@angular/core';
-import { TooltipService } from './nemex-tooltip.service';
-import { TooltipData } from './tooltip-data';
 import { DomSanitizer  } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/platform-browser';
+import { trigger,state,style,transition,animate,keyframes } from '@angular/animations';
+
+import { TooltipService } from './nemex-tooltip.service';
+import { TooltipData } from './tooltip-data';
 
 @Component({
     selector: 'tooltip',
