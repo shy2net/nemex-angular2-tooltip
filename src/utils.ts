@@ -2,9 +2,10 @@ export const isMouseInBounds = function(event:MouseEvent, el:HTMLElement, leaveR
   var mouseX = document.body.scrollLeft + event.clientX;
   var mouseY = document.body.scrollTop + event.clientY;
 
-  var elementX = el.offsetLeft;
+  var boundingRect = el.getBoundingClientRect();
+  var elementX = boundingRect.left;
   var elementWidth = el.offsetWidth;
-  var elementY = el.offsetTop;
+  var elementY = boundingRect.top;
   var elementHeight = el.offsetHeight;
 
   return mouseX >= (elementX - leaveRadius) &&
