@@ -10,8 +10,8 @@ export class TooltipService {
   @Output() public onTooltipHide = new EventEmitter<TooltipDirective>();
 
   // The tooltip subscription to hide and show events
-  private onTooltipShowSub:Subscriber<TooltipDirective>;
-  private onTooltipHideSub:Subscriber<TooltipDirective>;
+  private onTooltipShowSub: Subscriber<TooltipDirective>;
+  private onTooltipHideSub: Subscriber<TooltipDirective>;
 
   public defaultPlacement = 'bottom';
   public defaultEffect = 'fade';
@@ -27,12 +27,12 @@ export class TooltipService {
                     border-radius: 5px`;
 
   public defaultTooltipHtml =
-      `<div class="tooltip-container"></div>`;
+  `<div class="tooltip-container"></div>`;
 
   // Holds the active tooltip directive which also contains the tooltip component
-  private activeTooltip:TooltipDirective;
+  private activeTooltip: TooltipDirective;
 
-  public setActiveTooltip(tooltip:TooltipDirective) {
+  public setActiveTooltip(tooltip: TooltipDirective) {
     // If there is an already existing tooltip, destroy it
     if (this.activeTooltip) {
       this.activeTooltip.destroyTooltip();
@@ -47,19 +47,19 @@ export class TooltipService {
     }
   }
 
-  private onActiveTooltipShown(tooltip:TooltipDirective) {
-      this.onTooltipShow.emit(tooltip);
+  private onActiveTooltipShown(tooltip: TooltipDirective) {
+    this.onTooltipShow.emit(tooltip);
   }
 
-  private onActiveTooltipHidden(tooltip:TooltipDirective) {
-      this.onTooltipHide.emit(tooltip);
+  private onActiveTooltipHidden(tooltip: TooltipDirective) {
+    this.onTooltipHide.emit(tooltip);
 
-      /* The tooltip has been destroyed, unsubscribe from events from it.
-      We re-subscribe for the tooltip using the setActiveTooltip method */
-      this.onTooltipHideSub.unsubscribe();
+    /* The tooltip has been destroyed, unsubscribe from events from it.
+    We re-subscribe for the tooltip using the setActiveTooltip method */
+    this.onTooltipHideSub.unsubscribe();
   }
 
-  public getActiveTooltip():TooltipDirective { return this.activeTooltip; }
+  public getActiveTooltip(): TooltipDirective { return this.activeTooltip; }
 
-  public hasActiveTooltip():boolean { return this.activeTooltip != null; }
+  public hasActiveTooltip(): boolean { return this.activeTooltip != null; }
 }

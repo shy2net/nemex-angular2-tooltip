@@ -1,6 +1,8 @@
-import { Component,Directive,Inject, ComponentFactoryResolver, OnInit,
-          AfterContentChecked,Input,Output, ElementRef, Renderer,
-          ViewContainerRef,ComponentRef, EventEmitter } from '@angular/core';
+import {
+  Component, Directive, Inject, ComponentFactoryResolver, OnInit,
+  AfterContentChecked, Input, Output, ElementRef, Renderer,
+  ViewContainerRef, ComponentRef, EventEmitter
+} from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 
 import { TooltipService } from './nemex-tooltip.service';
@@ -16,151 +18,151 @@ import * as util from './utils';
   }
 })
 export class TooltipDirective {
-   @Input() public tooltipDisabled: boolean;
-   @Input() public tooltipContent: string;
-   @Input() public tooltipPlacement: string;
-   @Input() public tooltipEffect: string;
-   @Input() public tooltipOffsetX: number;
-   @Input() public tooltipOffsetY: number;
-   @Input() public tooltipColor: string;
-   @Input() public tooltipShowArrow: boolean;
-   @Input() public tooltipLeaveRadius: number;
-   @Input() public tooltipStyle: string;
-   @Input() public tooltipHtml: any;
+  @Input() public tooltipDisabled: boolean;
+  @Input() public tooltipContent: string;
+  @Input() public tooltipPlacement: string;
+  @Input() public tooltipEffect: string;
+  @Input() public tooltipOffsetX: number;
+  @Input() public tooltipOffsetY: number;
+  @Input() public tooltipColor: string;
+  @Input() public tooltipShowArrow: boolean;
+  @Input() public tooltipLeaveRadius: number;
+  @Input() public tooltipStyle: string;
+  @Input() public tooltipHtml: any;
 
-   @Output() public onTooltipShow = new EventEmitter<TooltipDirective>();
-   @Output() public onTooltipHide = new EventEmitter<TooltipDirective>();
+  @Output() public onTooltipShow = new EventEmitter<TooltipDirective>();
+  @Output() public onTooltipHide = new EventEmitter<TooltipDirective>();
 
-   private tooltipComponent:ComponentRef<TooltipComponent>;
+  private tooltipComponent: ComponentRef<TooltipComponent>;
 
-   // The mouse move bind handler
-   private mouseMoveBind:EventListener;
+  // The mouse move bind handler
+  private mouseMoveBind: EventListener;
 
-    constructor(private componentFactoryResolver: ComponentFactoryResolver,
-       private viewContainerRef: ViewContainerRef,
-       private el:ElementRef,
-       private renderer:Renderer,
-       private tooltipService:TooltipService,
-       @Inject(DOCUMENT) private document:any) {
+  constructor(private componentFactoryResolver: ComponentFactoryResolver,
+    private viewContainerRef: ViewContainerRef,
+    private el: ElementRef,
+    private renderer: Renderer,
+    private tooltipService: TooltipService,
+    @Inject(DOCUMENT) private document: any) {
 
+  }
+
+  ngAfterContentInit() {
+    var tooltipContentTag = this.el.nativeElement.querySelector('.tooltip-content');
+    this.tooltipContent = (tooltipContentTag != null) ? tooltipContentTag : this.tooltipContent;
+    var tooltipHtmlTag = this.el.nativeElement.querySelector('.tooltip-html');
+    this.tooltipHtml = (tooltipHtmlTag != null) ? tooltipHtmlTag : (this.tooltipHtml || this.tooltipService.defaultTooltipHtml);
+
+    // If the tooltip customization html tag is present, remove it
+    if (tooltipHtmlTag) tooltipHtmlTag.remove();
+
+    // Remove the tooltip content tag if exists
+    if (tooltipContentTag) tooltipContentTag.remove();
+  }
+
+  // Returns the tooltip style set while replacing the tooltip color within it if specified (comes with the defaultTooltipStyle).
+  public getTooltipStyle() {
+    var style = (this.tooltipStyle != undefined) ? this.tooltipStyle : this.tooltipService.defaultTooltipStyle;
+    return style.replace("{tooltipColor}", this.tooltipColor || this.tooltipService.defaultTooltipColor);
+  }
+
+  createTooltip(event: any) {
+    if (this.tooltipDisabled) return;
+
+    if (!this.tooltipContent)
+      throw new Error("tooltipContent is missing!");
+
+    var showArrow = this.tooltipService.defaultShowArrow;
+    if (this.tooltipShowArrow != undefined) showArrow = this.tooltipShowArrow;
+
+    let tooltipData = {
+      referencedDirective: this,
+      eventX: event.clientX,
+      eventY: event.clientY,
+      offsetX: Number(this.tooltipOffsetX),
+      offsetY: Number(this.tooltipOffsetY),
+      style: this.getTooltipStyle(),
+      placement: this.tooltipPlacement || this.tooltipService.defaultPlacement,
+      effect: this.tooltipEffect || this.tooltipService.defaultEffect,
+      containerHtml: this.tooltipHtml || this.tooltipService.defaultTooltipHtml,
+      color: this.tooltipColor || this.tooltipService.defaultTooltipColor,
+      showArrow: showArrow,
+      targetElement: this.el,
+      content: this.tooltipContent
+    };
+
+    // Get the default mouse leave radius if not specified
+    this.tooltipLeaveRadius = this.tooltipLeaveRadius || this.tooltipService.defaultMouseLeaveRadius;
+
+    // Create the tooltip component using the component factory
+    const factory = this.componentFactoryResolver.resolveComponentFactory(TooltipComponent);
+    const elementRef = this.viewContainerRef.createComponent(factory);
+    this.tooltipComponent = elementRef;
+
+    // Attach the tooltip to the body
+    this.document.querySelector('body').appendChild(elementRef.location.nativeElement);
+    elementRef.instance.tooltipData = tooltipData;
+
+    // Create a mousemove bind, to know when the user left the element
+    this.mouseMoveBind = this.onWindowMouseMove.bind(this); // We need the context of this
+    this.document.addEventListener('mousemove', this.mouseMoveBind);
+    this.tooltipService.setActiveTooltip(this);
+
+    // Call the event shown
+    this.onTooltipShow.emit(this);
+  }
+
+  getTooltipComponent(): TooltipComponent { return this.tooltipComponent.instance; }
+
+  // Called when the mouse is hovering our element
+  onMouseHover(event: MouseEvent) {
+    if (!this.tooltipComponent)
+      this.createTooltip(event);
+  }
+
+  // By listening to the mouse move on the window we can detect when the user left the element
+  // with the leave radius specified, we use this instead of mouseleave event as it does not allow
+  // us to handle the extras leave radius we created
+  onWindowMouseMove(event: MouseEvent) {
+    if (!this.tooltipComponent) return;
+    var tooltipElement = this.tooltipComponent.instance.getTooltipElement();
+
+    var isMouseInsideElement = util.isMouseInBounds(event,
+      this.el.nativeElement,
+      this.tooltipLeaveRadius,
+      this.document);
+
+    var isMouseInsideTooltip = isMouseInsideElement ||
+      util.isMouseInBounds(event,
+        tooltipElement, 0,
+        this.document);
+
+    // Check if the user is in the bounds of the element or the tooltip
+    if (isMouseInsideElement || isMouseInsideTooltip) {
+      // Dont do anything if the mouse is inside the element or the tooltip
     }
-
-    ngAfterContentInit() {
-      var tooltipContentTag = this.el.nativeElement.querySelector('.tooltip-content');
-      this.tooltipContent = (tooltipContentTag != null) ? tooltipContentTag : this.tooltipContent;
-      var tooltipHtmlTag = this.el.nativeElement.querySelector('.tooltip-html');
-      this.tooltipHtml = (tooltipHtmlTag != null) ? tooltipHtmlTag : (this.tooltipHtml || this.tooltipService.defaultTooltipHtml);
-
-      // If the tooltip customization html tag is present, remove it
-      if (tooltipHtmlTag) tooltipHtmlTag.remove();
-
-      // Remove the tooltip content tag if exists
-      if (tooltipContentTag) tooltipContentTag.remove();
+    else {
+      this.destroyTooltip();
     }
+  }
 
-    // Returns the tooltip style set while replacing the tooltip color within it if specified (comes with the defaultTooltipStyle).
-    public getTooltipStyle()  {
-      var style = (this.tooltipStyle != undefined) ?  this.tooltipStyle : this.tooltipService.defaultTooltipStyle;
-      return style.replace("{tooltipColor}", this.tooltipColor || this.tooltipService.defaultTooltipColor);
-    }
+  // Removes the tooltips entirely and cleans up any events listened for
+  destroyTooltip() {
+    if (!this.tooltipComponent) return;
 
-    createTooltip(event:any) {
-      if (this.tooltipDisabled) return;
-      
-      if (!this.tooltipContent)
-        throw new Error("tooltipContent is missing!");
+    // Destroy the tooltip as we don't need it anymore
+    this.tooltipComponent.destroy();
 
-      var showArrow = this.tooltipService.defaultShowArrow;
-      if (this.tooltipShowArrow != undefined) showArrow = this.tooltipShowArrow;
+    // Stop binding as the tooltip does not exist anymore
+    document.removeEventListener('mousemove', this.mouseMoveBind);
 
-      let tooltipData = {
-        referencedDirective: this,
-        eventX: event.clientX,
-        eventY: event.clientY,
-        offsetX:  Number(this.tooltipOffsetX),
-        offsetY: Number(this.tooltipOffsetY),
-        style: this.getTooltipStyle(),
-        placement: this.tooltipPlacement || this.tooltipService.defaultPlacement,
-        effect: this.tooltipEffect || this.tooltipService.defaultEffect,
-        containerHtml: this.tooltipHtml || this.tooltipService.defaultTooltipHtml,
-        color: this.tooltipColor || this.tooltipService.defaultTooltipColor,
-        showArrow: showArrow,
-        targetElement: this.el,
-        content: this.tooltipContent
-      };
+    // Allow the tooltip be recreated
+    this.tooltipComponent = null;
 
-      // Get the default mouse leave radius if not specified
-      this.tooltipLeaveRadius = this.tooltipLeaveRadius || this.tooltipService.defaultMouseLeaveRadius;
+    // Update the tooltip service as there is no active tooltip anymore
+    this.tooltipService.setActiveTooltip(null);
 
-      // Create the tooltip component using the component factory
-      const factory = this.componentFactoryResolver.resolveComponentFactory(TooltipComponent);
-      const elementRef = this.viewContainerRef.createComponent(factory);
-      this.tooltipComponent = elementRef;
-
-      // Attach the tooltip to the body
-      this.document.querySelector('body').appendChild(elementRef.location.nativeElement);
-      elementRef.instance.tooltipData = tooltipData;
-
-      // Create a mousemove bind, to know when the user left the element
-      this.mouseMoveBind = this.onWindowMouseMove.bind(this); // We need the context of this
-      this.document.addEventListener('mousemove', this.mouseMoveBind);
-      this.tooltipService.setActiveTooltip(this);
-
-      // Call the event shown
-      this.onTooltipShow.emit(this);
-    }
-
-    getTooltipComponent():TooltipComponent { return this.tooltipComponent.instance; }
-
-    // Called when the mouse is hovering our element
-    onMouseHover(event:MouseEvent) {
-      if (!this.tooltipComponent)
-        this.createTooltip(event);
-    }
-
-    // By listening to the mouse move on the window we can detect when the user left the element
-    // with the leave radius specified, we use this instead of mouseleave event as it does not allow
-    // us to handle the extras leave radius we created
-    onWindowMouseMove(event:MouseEvent) {
-      if (!this.tooltipComponent) return;
-      var tooltipElement = this.tooltipComponent.instance.getTooltipElement();
-
-      var isMouseInsideElement = util.isMouseInBounds(event,
-                                this.el.nativeElement,
-                                this.tooltipLeaveRadius,
-                                this.document);
-
-      var isMouseInsideTooltip = isMouseInsideElement ||
-                                  util.isMouseInBounds(event,
-                                    tooltipElement, 0,
-                                    this.document);
-
-      // Check if the user is in the bounds of the element or the tooltip
-      if (isMouseInsideElement || isMouseInsideTooltip) {
-        // Dont do anything if the mouse is inside the element or the tooltip
-      }
-      else {
-        this.destroyTooltip();
-      }
-    }
-
-    // Removes the tooltips entirely and cleans up any events listened for
-    destroyTooltip() {
-      if (!this.tooltipComponent) return;
-
-      // Destroy the tooltip as we don't need it anymore
-      this.tooltipComponent.destroy();
-
-      // Stop binding as the tooltip does not exist anymore
-      document.removeEventListener('mousemove', this.mouseMoveBind);
-
-      // Allow the tooltip be recreated
-      this.tooltipComponent = null;
-
-      // Update the tooltip service as there is no active tooltip anymore
-      this.tooltipService.setActiveTooltip(null);
-
-      // Call the event hide
-      this.onTooltipHide.emit(this);
-    }
+    // Call the event hide
+    this.onTooltipHide.emit(this);
+  }
 }

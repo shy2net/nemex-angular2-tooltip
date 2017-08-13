@@ -1,14 +1,14 @@
 import { Component, ElementRef, Renderer, Inject } from '@angular/core';
-import { DomSanitizer  } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/platform-browser';
-import { trigger,state,style,transition,animate,keyframes } from '@angular/animations';
+import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 
 import { TooltipService } from './nemex-tooltip.service';
 import { TooltipData } from './tooltip-data';
 
 @Component({
-    selector: 'tooltip',
-    template: `<div class="tooltip"
+  selector: 'tooltip',
+  template: `<div class="tooltip"
                   (window:scroll)="onWindowScroll($event)"
                   (window:resize)="onWindowResize($event)"
                   style="position: absolute;"
@@ -25,25 +25,25 @@ import { TooltipData } from './tooltip-data';
                     <!-- Here goes the tooltip content HTML -->
                   </div>
                 </div>`,
-    styles: []
+  styles: []
 })
-export class TooltipComponent{
+export class TooltipComponent {
   private _tooltipData: TooltipData;
   private x = 0;
   private y = 0;
 
-  constructor(private el:ElementRef,
-    private renderer:Renderer,
-    private tooltipService:TooltipService,
+  constructor(private el: ElementRef,
+    private renderer: Renderer,
+    private tooltipService: TooltipService,
     private sanitizer: DomSanitizer,
-    @Inject(DOCUMENT) private document:any) { }
+    @Inject(DOCUMENT) private document: any) { }
 
   set tooltipData(tooltipData: TooltipData) {
     this._tooltipData = tooltipData;
   }
 
-  isArrowVisible() { 
-    return this._tooltipData.showArrow; 
+  isArrowVisible() {
+    return this._tooltipData.showArrow;
   }
 
   // Returns the tooltip arrow orientation
@@ -56,8 +56,8 @@ export class TooltipComponent{
     }
   }
 
-  getArrowFillColor() { 
-    return this._tooltipData.color; 
+  getArrowFillColor() {
+    return this._tooltipData.color;
   }
 
   getClass() { return "tooltip-" + this._tooltipData.placement; }
@@ -108,16 +108,16 @@ export class TooltipComponent{
 
   public getReferencedDirective() { this._tooltipData.referencedDirective; }
   public getTooltipElement() { return this.el.nativeElement.firstElementChild; }
-  public getTooltipWrapperElement() { return this.getTooltipElement().querySelector(".tooltip-wrapper");  }
+  public getTooltipWrapperElement() { return this.getTooltipElement().querySelector(".tooltip-wrapper"); }
   public getTooltipContainerElement() { return this.getTooltipElement().querySelector(".tooltip-container"); }
 
   // Update the tooltip position accordingly
-  onWindowResize(event:Event) {
+  onWindowResize(event: Event) {
     this.placeTooltip();
   }
 
   // Update the tooltip position when window is being scrolled
-  onWindowScroll(event:Event) {
+  onWindowScroll(event: Event) {
     this.placeTooltip();
   }
 
@@ -192,7 +192,9 @@ export class TooltipComponent{
     offsetX = offsetX || 0;
     offsetY = offsetY || 0;
 
-    return { offsetX : offsetX,
-             offsetY : offsetY };
+    return {
+      offsetX: offsetX,
+      offsetY: offsetY
+    };
   }
 }
