@@ -13,8 +13,7 @@ import * as util from './utils';
 @Directive({
   selector: '[tooltip]',
   host: {
-    '(mouseover)': 'onMouseHover($event)',
-    '(click)': 'onClick($event)',
+    '(mouseover)': 'onMouseHover($event)'
   }
 })
 export class TooltipDirective {
